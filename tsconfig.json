@@ -5,7 +5,8 @@
     "sourceMap": true,
     "types": [
       "@nuxt/types",
-      "@nuxtjs/axios"
+      "@nuxtjs/axios",
+      "@nuxtjs/auth-next"
     ]
   },
   "exclude": [
