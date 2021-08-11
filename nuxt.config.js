@@ -60,26 +60,29 @@ export default {
   },
 
   auth: {
-    laravelSanctum: {
-      provider: 'laravel/sanctum',
+    strategies: {
+      'laravelSanctum': {
+        provider: 'laravel/sanctum',
+        url: process.env.API_HOST,
+      },
     },
+    redirect: {
+      login: '/auth/login',
+      logout: '/',
+      callback: false,
+      home: '/cp'
+    }
   },
 
   publicRuntimeConfig: {
     axios: {
       browserBaseURL: process.env.API_URL
     },
-    laravelSanctum: {
-      url: process.env.API_HOST,
-    },
   },
 
   privateRuntimeConfig: {
     axios: {
       browserBaseURL: process.env.API_URL
-    },
-    laravelSanctum: {
-      url: process.env.API_HOST,
     },
   },
 
