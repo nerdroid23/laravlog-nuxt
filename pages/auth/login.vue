@@ -26,6 +26,10 @@
         </div>
       </div>
 
+      <ul v-if="Object.keys(errors).length">
+        <li v-for="(error, i) in errors" :key="i" class="mt-2 text-sm text-red-600">{{error[0]}}</li>
+      </ul>
+
       <div class="flex items-center justify-between">
         <div class="flex items-center">
           <input id="remember-me" name="remember-me" type="checkbox"
@@ -64,23 +68,30 @@
 </template>
 
 <script>
-import { defineComponent, ref, useContext } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, ref, useContext } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   layout: 'auth',
   auth: 'guest',
   setup() {
     const { $auth } = useContext()
-    const form = ref({
+    const errors = ref({})
+    const form = reactive({
       email: 'jdoe@mail.com',
       password: 'password',
     })
 
     const login = () => {
-      $auth.loginWith('laravelSanctum', { data: form.value })
+      errors.value = {}
+      $auth.loginWith('laravelSanctum', { data: form })
+        .catch(e => {
+          if (e.response.status === 422) {
+            errors.value = e.response.data.errors
+          }
+        })
     }
 
-    return { form, login }
+    return { form, login, errors }
   },
 })
 </script>
