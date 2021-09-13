@@ -86,6 +86,11 @@ export default {
     },
   },
 
+  router: {
+    linkActiveClass: 'underline',
+    linkExactActiveClass: 'underline',
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     babel: {
